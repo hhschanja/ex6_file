@@ -5,4 +5,32 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
+		<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
+			<property name="username" value="user03"></property>
+			<property name="password" value="user03"></property>
+			<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		</bean>
+		
+		<!-- connection과 Mapper 연결하는 놈 -->
+		<!-- 어너테이션으로 객체를 넣으려면 코드를 까서 안에다가 게터세터를 하던지 생성자를 하던지 해야하는데 지금 이거는 API 가져다 쓰는거라 코드를 모르잖아, 그래서 xml로 다써서 객체 생성하는거야 -->
+		<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"></property>
+			<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property><!-- 나중에 배포할때는 자바 코드들은 컴파일 되서 클래스 파일로 옵니다, 그놈들을 저장하는 폴더가 classpath라고 부름 -->
+		</bean>
+		
+		<bean class="org.mybatis.spring.SqlSessionTemplate"> <!-- DAO에서 필요한 애는 얘가 되는거지 -->
+			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
+		</bean>
+		
+	<!-- multipart는 다 쪼개져서 날아가는거야 -->
+	<!-- 쪼개진 파일을 합쳐주는 놈의 객체를 만들어야해 -->
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<property name="defaultEncoding" value="UTF-8"></property>
+		
+		
+<!-- 	<property name="maxUploadSize"></property>파일들의 전체크기 -->
+<!--	<property name="maxUploadSizePerFile"></property>파일 하나당 크기 -->
+	</bean>
+	
 </beans>
