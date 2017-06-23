@@ -19,10 +19,21 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="1"/>
 	</beans:bean>
 	
-	<context:component-scan base-package="com.choa.ex6" />
+	<!-- 다운 받는 횟수가 이동하는 횟수보다 적으니까 0번째 요놈을 먼저해보고 클래스가 없다면 그다음 1번응 2번 3번..이런식으로 순서를 주는거야  -->
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0"></beans:property> <!-- 얘를 먼저 실행하세요 -->	
+	</beans:bean>
 	
+	<beans:bean class="com.choa.file.Download" id="download"> <!-- download객체가 없으니까 객체를 만들어줘야지 그러면 그 안에 생성자 들어가고~ -->
+	
+	</beans:bean>
+	
+	
+	<context:component-scan base-package="com.choa.ex6" />
+	<context:component-scan base-package="com.choa.notice" />
 	
 	
 </beans:beans>

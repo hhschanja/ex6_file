@@ -8,35 +8,39 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<form action="fileUpload" method="post" enctype="multipart/form-data" >
+<h1>단일 파일 업로드</h1>
+<form action="./fileUpload" method="post" enctype="multipart/form-data" > 
 	<input type="text" name="name">
 	<input type="file" name="f1">
-	<button>시발</button>
+	<button>버튼</button>
 </form>
 <hr>
 
-<form action="./multiFileUpload" method="post" enctype="multipart/form-data" >
+<h1>다중 파일 업로드 여러개의 파라미터 이름이 다를때 몇개인지 알고</h1>
+<form action="./multiFileUpload" method="post" enctype="multipart/form-data" > 
 	<input type="text" name="name">
 	<input type="file" name="f1">
 	<input type="file" name="f2">
-	<button>시발</button>
+	<button>버튼</button>
 </form>
 
 <hr>
-<!-- 파라미터 이름이 같은 경우 -->
+
+<h1>다중 파일 업로드 파라미터 이름이 같을때 몇개인지 알고</h1>
 <form action="./sameMultiFileUpload" method="post" enctype="multipart/form-data" >
 	<input type="text" name="name">
 	<input type="file" name="f1">
 	<input type="file" name="f1">
-	<button>시발</button>
+	<button>버튼</button>
 </form>
 
 <hr>
 
+<h1>다중 파일 업로드 파라미터 이름도 모르고 몇개인지도 모를때</h1>
 <form action="./upload" method="post" enctype="multipart/form-data" >
 	<input type="text" name="name">
 	<input type="button" id="add" value="FileADD">
-	<div id="file">
+	<div id="fff">
 	
 	</div>
 	
@@ -51,9 +55,9 @@
 
 	$('#add').click(function() {
 		
-		if(count<=5){
+		if(count<=5){ 
 			
-			$('#file').append('<p><input type="file" name="f1"><span class="dd">X</span></p>');
+			$('#file').append('<p><input type="file" name="f'+count+'"><span class="del">X</span></p>');
 		
 			count++;
 		}else{
@@ -62,8 +66,11 @@
 		
 	});
 	
-	$('#file').on("click",".dd",function() {
-		$(this).remove();
+	$('#fff').on("click",".del",function() { //parent() 선택된 애의 한단계 위에 놈을 지정해줄 때
+		
+		$(this).parent().remove();
+		
+		count--;
 	})
 	
 	

@@ -44,6 +44,7 @@ public class FileSaver { //오직 파일을 저장만 해주는 놈이야
 		if(!f.exists()){
 			f.mkdirs();
 		}
+		System.out.println(realPath);
 		
 		//String fileName = UUID.randomUUID().toString(); //uuid클래스를 만들때는 new 가아니라 .random으로 만들어주는거야 Calecder 객체 만들때 처럼
 		
