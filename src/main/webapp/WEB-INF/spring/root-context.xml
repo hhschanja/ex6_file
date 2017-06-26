@@ -5,11 +5,18 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
+		<!-- properties를 읽어올 수 있는 객체 -->
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholderConfigurer">
+			<property name="locations">
+				<value>classpath:mybatis/mybatis.properties</value>
+			</property>
+		</bean>
+				
 		<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
-			<property name="username" value="user03"></property>
-			<property name="password" value="user03"></property>
-			<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
-			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+			<property name="username" value="${jdbc.user}"></property>
+			<property name="password" value="${jdbc.pw}"></property>
+			<property name="url" value="${jdbc.url}"></property>
+			<property name="driverClassName" value="${jdbc.driver}"></property>
 		</bean>
 		
 		<!-- connection과 Mapper 연결하는 놈 -->
@@ -17,6 +24,7 @@
 		<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
 			<property name="dataSource" ref="dataSource"></property>
 			<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property><!-- 나중에 배포할때는 자바 코드들은 컴파일 되서 클래스 파일로 옵니다, 그놈들을 저장하는 폴더가 classpath라고 부름 -->
+			<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property> <!-- mapper에서 alias를 일게하기 위해 연결하는 작업 -->
 		</bean>
 		
 		<bean class="org.mybatis.spring.SqlSessionTemplate"> <!-- DAO에서 필요한 애는 얘가 되는거지 -->

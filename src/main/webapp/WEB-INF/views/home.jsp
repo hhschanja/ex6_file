@@ -13,6 +13,7 @@
 
 <a href="./notice/noticeList">NOTICE LIST</a>
 <a href="./file/fileUpload">FILE FORM</a>
+<a href="./memo/memoList">MEMO</a>
 
 </body>
 </html>

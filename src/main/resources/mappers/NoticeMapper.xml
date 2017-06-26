@@ -19,7 +19,7 @@
 		</trim>
 	</sql>
 
-	<select id="list" parameterType="com.choa.util.ListInfo" resultType="com.choa.notice.NoticeDTO"> <!-- 리절트 타입을  java.util.ArrayList 해버리면 제너릭을 뭘로 할지 모르잖아 boardDTO 배열인지.. 무슨배열인지.. 제네릭만 쓰면 만약 여러개가 오면 지가 알아서 배열로 만들어줌.. -->
+	<select id="list" parameterType="com.choa.util.ListInfo" resultType="NoticeDTO"> <!-- 리절트 타입을  java.util.ArrayList 해버리면 제너릭을 뭘로 할지 모르잖아 boardDTO 배열인지.. 무슨배열인지.. 제네릭만 쓰면 만약 여러개가 오면 지가 알아서 배열로 만들어줌.. -->
 		select * from (select A.*,rownum R from (select * from notice
 		<include refid="search"></include>
 		 order by num desc) A) B where R between #{startRow} and #{lastRow}
@@ -30,12 +30,12 @@
 		<include refid="search"></include>
 	</select>
 
-  	<select id="view" resultType="com.choa.notice.NoticeDTO" parameterType="java.lang.Integer">
+  	<select id="view" resultType="NoticeDTO" parameterType="java.lang.Integer">
   		select * from notice where num = #{num} <!-- 파라미터 이름을 고대로 쓸 것 -->
   	</select>
   	
   	<!-- insert,update,delete는 어차피int가 리턴이리까 resultType은 적지 않아도됨 -->
-  	<insert id="write" parameterType="com.choa.notice.NoticeDTO">
+  	<insert id="write" parameterType="NoticeDTO">
   		insert into notice values(notice_seq.nextval,#{writer},#{title},#{contents},sysdate,0)
   	</insert>
   	
@@ -43,7 +43,7 @@
   		delete from notice where num = #{num}
   	</delete>
   	
-  	<update id="update" parameterType="com.choa.notice.NoticeDTO">
+  	<update id="update" parameterType="NoticeDTO">
   		update notice 
   		<trim prefix="set" prefixOverrides=",">
   		<if test="title!=null">title=#{title},</if>

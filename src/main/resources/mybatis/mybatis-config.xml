@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd"><!-- 얘는 configuration 용 선언문!! --> <!-- 이걸 선언하는 순간 configuration 파일이 되는거야 -->
+  
+  
+  <configuration>
+  	<typeAliases>
+  		<typeAlias type="com.choa.notice.NoticeDTO" alias="NoticeDTO" />
+  		<typeAlias type="com.choa.memo.MemoDTO" alias="MemoDTO"/>
+  		<typeAlias type="com.choa.util.ListInfo" alias="ListInfo"/>
+  	</typeAliases>
+  
+  </configuration>
+  

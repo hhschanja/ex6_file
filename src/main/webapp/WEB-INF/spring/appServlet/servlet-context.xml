@@ -32,8 +32,11 @@
 	</beans:bean>
 	
 	
+	<!-- annotation을 인식해서 객체를 만들어 줄 수 있게 스캔범위를 정해줘야지 -->
 	<context:component-scan base-package="com.choa.ex6" />
 	<context:component-scan base-package="com.choa.notice" />
+	<context:component-scan base-package="com.choa.memo" />
+	
 	
 	
 </beans:beans>
