@@ -34,15 +34,10 @@ public class MemoController {
 		
 	}
 	
-	@RequestMapping(value="getMemoList/${curPage}/${kind}/{search}")
+	@RequestMapping(value="getMemoList")
 	@ResponseBody//주소가 다른애들인데 중간과정이 필요없을 경우 (에이잭스나 이런경우)
 	//지금 리턴하는 데이터를 돌아가는 리스트의 내용으로 보내겠다. 제이슨 타입으로 바로 data로 들어감, 파싱 안해도됌
-	public List<MemoDTO> memoList(@PathVariable int curPage, @PathVariable String kind, @PathVariable String search, Model model){
-		
-		ListInfo listInfo = new ListInfo();
-		listInfo.setCurPage(curPage);
-		listInfo.setKind(kind);
-		listInfo.setSearch(search);
+	public List<MemoDTO> memoList(Model model, ListInfo listInfo){
 		
 		return memoService.list(listInfo);
 		
@@ -50,7 +45,7 @@ public class MemoController {
 	
 	@RequestMapping(value="memoWrite", method=RequestMethod.POST)
 	@ResponseBody
-	public String memoWrite(MemoDTO memoDTO, Model model) throws Exception{
+	public List<MemoDTO> memoWrite(MemoDTO memoDTO) throws Exception{
 		
 		memoService.write(memoDTO);
 		
@@ -60,14 +55,14 @@ public class MemoController {
 		
 		List<MemoDTO> lar = memoService.list(listInfo); //메소드를 한번 더 해서 보내는거지
 		
-		model.addAttribute("list", lar);
-		
-		return "memo/getMemoList"; //jsp 페이지로 가겠지 그놈을 DATA로 들고오겠지
+		return lar;
 	}
 	
-	@RequestMapping(value="memoView/{num}") //rest press방식 주소에 데이터가 들어가서 오는거야
+	
+	
+	@RequestMapping(value="memoView") 
 	@ResponseBody
-	public MemoDTO memoView(@PathVariable("num") int num) throws Exception{
+	public MemoDTO memoView(int num) throws Exception{
 		MemoDTO memoDTO = memoService.view(num);
 		return memoDTO;
 	}

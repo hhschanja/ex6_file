@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,10 +25,26 @@ public class NoticeController {
 	@Inject
 	private NoticeServiceImpl noticeService;
 	
+/*	@ExceptionHandler(Exception.class) //컨트롤러 안에서 만들어도됌, 그러나 noticeController니까 notice만 되겠지
+	public String exception(){
+		return "error/notFound";
+	}*/
+	
 	@RequestMapping(value="noticeList")
 	public String noticeList(Model model,ListInfo listInfo) throws Exception{ // 파라미터로 넘어오는 값을 listInfo가 가지고 있으면 알아서 들어가 null값이어도 spring이 알아서 걸러서 jsp에 null이라고 안나와
 		
 		List<BoardDTO> ar = noticeService.list(listInfo);
+		
+		System.out.println(ar.get(2000).getTitle());
+
+		/*	이걸 controllerAdvice로 던지는거야
+		try {
+			//여기서 Exeption이 발생하면 
+			//throw new IndexOutOfBoundsException(); 를 만들어서 e로 보냄
+		} catch (Exception e) {
+			// TODO: handle exception
+		}*/
+		
 		model.addAttribute("list", ar).addAttribute("board","notice").addAttribute("listInfo", listInfo); //컨트롤러의 listInfo랑 서비스의 listInfo랑 주소값이 같은 객체이니까 요거 하나 날리면되지
 		return "board/boardList";
 	}

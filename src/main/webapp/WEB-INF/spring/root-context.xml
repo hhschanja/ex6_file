@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
@@ -35,10 +39,34 @@
 	<!-- 쪼개진 파일을 합쳐주는 놈의 객체를 만들어야해 -->
 	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
 		<property name="defaultEncoding" value="UTF-8"></property>
-		
-		
 <!-- 	<property name="maxUploadSize"></property>파일들의 전체크기 -->
 <!--	<property name="maxUploadSizePerFile"></property>파일 하나당 크기 -->
 	</bean>
+	
+	
+ 	<!-- 공통 로직 -->
+<!--	<bean class="com.choa.aspect.CardCheck" id="cardCheck"></bean> 사용하여면 객체를 만등어야지
+	
+		<aop:config> AOP 전체 설정   하위의 aspect단위로 또 묶어주면돼
+			<aop:aspect id="cardAspect" ref="cardCheck"> cardcheck가 cardAspect가 되면서 aspect 역할을 할것입니다  여기 있을 것이다 여기서 찾아라
+				<aop:pointcut expression="execution(* com.choa.aspect..Transport.*(..))" id="trans"/> 이 패턴을 갖는 애들을 대상으로 합니다~ 
+				<aop:around method="check" pointcut-ref="trans"/>
+			</aop:aspect>
+			
+			<aop:aspect id="cardReserve" ref="cardCheck">
+				<aop:pointcut expression="execution(* com.choa.aspect..Trip.*(..))" id="reserve"/>
+				<aop:before method="reservation" pointcut-ref="reserve"/>
+			</aop:aspect>
+			
+		</aop:config> -->
+	
+			<!-- 
+				aspect안에있는 모든패키지에서 그 안에 있는  클래스명이 Transport라는 놈 밑에 모든 메소드인데 멤버변수도 모구   
+				com.choa.aspect 하위의 모든 디렉토리에서 
+				.. :  하위의 모든 디렉토리
+				* : 해당 클래스 하위의 모든 메소드
+				(..) : 매개 변수가 있든 없든 모든 매개변수를 의미
+				. : 밑에~ -->
+	
 	
 </beans>

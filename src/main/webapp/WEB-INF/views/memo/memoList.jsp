@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<script type="text/javascript" src="../resources/js/memo.js"></script>
 <title>Insert title here</title>
 <script type="text/javascript">
  
@@ -24,66 +24,14 @@
 	
 		$("#btnView").click(function(){
 			
-			memoView(1);
+			memoView(999);
 			
 		});
 		
-		
-		
-		function memoWrite(writer,contents){
-			$.ajax({
-				url:"memoWrite",
-				type:"POST",
-				data:{writer:writer,contents:contents},
-				success:function(data){
-					$('#result').html(data.trim());
-				}
-				
-			});
-		};
-		
-		
-		function getList(curPage, kind, search) { //여기에다가 AJAX코드를 치면
-			$.ajax({
-				url:"getMemoList",
-				type:"GET",
-				data:{curPage:curPage,kind:kind,search:search},
-				success:function(data){
-					
-/* 					alert(data);		
-					data = data.trim();
-					data = JSON.parse(data);  */
-				
-					var result = "<table>";
-					$(data).each(function() { //하나 꺼내서 집어넣어라
-						
-						result=result+"<tr>";
-						result=result+"<td>"+this.num+"</td>";
-						result=result+"<td>"+this.contents+"</td>";
-						result=result+"<td>"+this.writer+"</td>";
-						result=result+"<td>"+this.date+"</td>";
-						result=result+"</tr>";
-					});
-						result=result+"</table>";
-						$('#result').html(result);
-				}
-			});
-			
-		}
-		
-		function memoView() {
-			
-			$.get("memoView/num="+num,function(data){
-				alert(data.writer);
-			})
-			
-		}
-		
-		
-		
-		
-		
-	});
+	});	
+	
+	
+	
 	
 		
 			//ajax들~
@@ -116,7 +64,7 @@
 <textarea rows="" cols="" id="contents"></textarea>
 <input type="button" id="btn" value="버튼">
 </form>
-<input type="button" id="btnView">
+<input type="button" id="btnView" value="VIEW999">
 
 </body>
 </html>
