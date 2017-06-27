@@ -51,4 +51,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value="practice")
+	public void practice(){
+		
+	}
+	
 }

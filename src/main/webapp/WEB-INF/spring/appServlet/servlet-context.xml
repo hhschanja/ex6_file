@@ -52,5 +52,6 @@
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	<!-- scan의 순서를 보면 루트럴 먼저 갔다가 서블렛을 가는데 aspect 패키지를 먼저 읽고나서 객체름 만든다음에 프록시를 읽어서 @aspect를 찾아야해-->
 	
+	<context:component-scan base-package="com.choa.table" />
 	
 </beans:beans>
